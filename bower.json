@@ -1,0 +1,17 @@
+{
+  "name": "js-technical-test",
+  "description": "Le sujet de base est simple : il faut afficher le fil de discussion d'un ticket Github et déterminer qui est le plus bavard. L'habillage graphique est un peu différent de celui de Github, il y a un graphique, des filtres et dans l'idéal la possibilité d'ajouter un commentaire.",
+  "main": "index.js",
+  "authors": [
+    "Hedoire <codaj@support.codaj.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/nicolashedoire/js-technical-test",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

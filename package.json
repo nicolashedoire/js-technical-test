@@ -1,0 +1,22 @@
+{
+  "name": "js-technical-test",
+  "version": "1.0.0",
+  "description": "Le sujet de base est simple : il faut afficher le fil de discussion d'un ticket Github et déterminer qui est le plus bavard. L'habillage graphique est un peu différent de celui de Github, il y a un graphique, des filtres et dans l'idéal la possibilité d'ajouter un commentaire.",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolashedoire/js-technical-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicolashedoire/js-technical-test/issues"
+  },
+  "homepage": "https://github.com/nicolashedoire/js-technical-test#readme"
+}
