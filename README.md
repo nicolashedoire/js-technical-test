@@ -50,3 +50,13 @@ Filtrer un participant le fait disparaitre du graphique.
 
  * Ajouter un textarea sous la discussion pour permettre d'ajouter un commentaire. Il faudra faire un appel authentifié à l'API Github. Vous pouvez stocker les infos de connexion dans une configuration (pas besoin de formulaire de login).
  * Accompagner les changements d'affichage avec des animations (apparition / disparition des messages, mise à jour du graphique).
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+
+Installation du projet 
+
+bower install pour télécharger les librairies
