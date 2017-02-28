@@ -25,12 +25,15 @@
 		</div>
 		<div class="input-group">
 			<label for="owner">Number :</label>
-			<input class="form-control" type="text" id="number" ng-change="getIssue()" ng-model="number" placeholder="Number" autocomplete="off">
+			<input class="form-control" type="text" id="number" ng-model="number" placeholder="Number" autocomplete="off">
 		</div>
+		<button class="btn btn-default" ng-click="getIssue()">Get comments</button>
+		<hr>
+			<div id="container" style="min-width: 310px; max-width: 500px; height: 300px; margin: 0 auto"></div>
 		<hr>
 		<h2 class="title-conversation">Users</h2>
 		<ul class="list-unstyled">        
-			<li ng-repeat="filter in filters">
+			<li ng-repeat="filter in filters" class="noselect">
 				<label><input type="checkbox" ng-checked="filter.selected" ng-change="updateList($event)" ng-model="filter.selected"> {{filter.name}}</label>
 			</li>
 		</ul>
@@ -78,6 +81,7 @@
 	</div>
 	
 	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="bower_components/highcharts/highcharts.js"></script>
 	<script type="text/javascript" src="public/js/app.js"></script>
 </body>
 </html>

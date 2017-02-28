@@ -6,6 +6,7 @@ app.controller('mainController', function($scope , $http , $location){
 	var clientId     = 'client_id=d1942bc1c324349694c9';
 	var clientSecret = '&client_secret=98ab2c8869c1828d1107affebdc865c59361d716'; 
 	var params       = '?' + clientId + clientSecret;
+	var users = [];
 
 	// default values
 	$scope.owner  = 'nodejs';
@@ -30,6 +31,23 @@ app.controller('mainController', function($scope , $http , $location){
     	$scope.comments_ = angular.copy($scope.comments);
     	$scope.array     = [];
     	$scope.filters   = [];
+
+      	// ajout du nombre de mots par message
+      	for(var i = 0; i < $scope.comments.length ; i++){
+      		$scope.comments[i].bodyLength = $scope.comments[i].body.split(' ').length;
+      		if(users.map(function(e) { return e.name; }).indexOf($scope.comments[i].user.login) == -1){
+      			// on push le nombre d'utilisateur si il n'y osnt pas déjà dans users
+      			users.push({name : $scope.comments[i].user.login , y : $scope.comments[i].bodyLength});
+      		}else{
+      			users.map(function(e) {
+      				if(e.name === $scope.comments[i].user.login){
+      					// on update le nombre de mots
+      					e.y =  parseInt(e.y) + parseInt($scope.comments[i].bodyLength);
+      				};
+      			});
+      		}
+      	}
+
       	for(var i = 0 ; i < $scope.comments.length ; i++){
 	      	if($scope.array.indexOf($scope.comments[i].user.login) == -1){
 	      		$scope.array.push($scope.comments[i].user.login);
@@ -38,12 +56,48 @@ app.controller('mainController', function($scope , $http , $location){
       	}
 
       	$scope.array_ = angular.copy($scope.array);
+
+
+      	/// create chart
+		Highcharts.chart('container', {
+		    chart: {
+		        type: 'pie',
+		        animation: {
+              			duration: 1000
+           		}
+		    },
+		    title: {
+		        text: 'Qui est le plus bavard ?'
+		    },
+		 	credits: {
+		      enabled: false
+		  	},
+		    plotOptions: {
+		        series: {
+		            dataLabels: {
+		                enabled: true,
+		                format: '{point.name}: {point.y:.0f}'
+		            }
+		        }
+		    },
+		    tooltip: {
+		        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+		        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b> words<br/>'
+		    },
+		    series: [{
+		        name: 'User',
+		        colorByPoint: true,
+		        data: users
+		    }]
+		});
     });
 
 
 
 	// get new issues
     $scope.getIssue = function(){
+    	// reset users array
+    	users = [];
 
     	// construct different url
     	$location.url($scope.owner + '/' + $scope.repo + '/' + $scope.number);
@@ -61,21 +115,73 @@ app.controller('mainController', function($scope , $http , $location){
 
 	    // get comments
 	    $http.get($scope.commentsUrl).then(function(res){
-    		$scope.comments  = res.data;
-    		$scope.comments_ = angular.copy($scope.comments);
-	    	$scope.array     = [];
-	    	$scope.filters   = [];
-	      	for(var i = 0 ; i < $scope.comments.length ; i++){
-		      	if($scope.array.indexOf($scope.comments[i].user.login) == -1){
-		      		$scope.array.push($scope.comments[i].user.login);
-		      		$scope.filters.push({'name' : $scope.comments[i].user.login , selected: true});
-		      	}
-	      	}
+    	$scope.comments  = res.data;
+    	$scope.comments_ = angular.copy($scope.comments);
+    	$scope.array     = [];
+    	$scope.filters   = [];
 
-	      	$scope.array_ = angular.copy($scope.array);
+      	// ajout du nombre de mots par message
+      	for(var i = 0; i < $scope.comments.length ; i++){
+      		$scope.comments[i].bodyLength = $scope.comments[i].body.split(' ').length;
+      		if(users.map(function(e) { return e.name; }).indexOf($scope.comments[i].user.login) == -1){
+      			// on push le nombre d'utilisateur si il n'y osnt pas déjà dans users
+      			users.push({name : $scope.comments[i].user.login , y : $scope.comments[i].bodyLength});
+      		}else{
+      			users.map(function(e) {
+      				if(e.name === $scope.comments[i].user.login){
+      					// on update le nombre de mots
+      					e.y =  parseInt(e.y) + parseInt($scope.comments[i].bodyLength);
+      				};
+      			});
+      		}
+      	}
+
+      	for(var i = 0 ; i < $scope.comments.length ; i++){
+	      	if($scope.array.indexOf($scope.comments[i].user.login) == -1){
+	      		$scope.array.push($scope.comments[i].user.login);
+	      		$scope.filters.push({'name' : $scope.comments[i].user.login , selected: true});
+	      	}
+      	}
+
+      	$scope.array_ = angular.copy($scope.array);
+
+
+      	/// create chart
+		Highcharts.chart('container', {
+		    chart: {
+		        type: 'pie',
+		        animation: {
+              			duration: 1000
+           		}
+		    },
+		    title: {
+		        text: 'Qui est le plus bavard ?'
+		    },
+		 	credits: {
+		      enabled: false
+		  	},
+		    plotOptions: {
+		        series: {
+		            dataLabels: {
+		                enabled: true,
+		                format: '{point.name}: {point.y:.0f}'
+		            }
+		        }
+		    },
+		    tooltip: {
+		        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+		        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b> words<br/>'
+		    },
+		    series: [{
+		        name: 'User',
+		        colorByPoint: true,
+		        data: users
+		    }]
+		});
     	});
     }
 
+    // update comments list
 	$scope.updateList = function() {
 		var selectedUsers = [] , items = [] , comments = [];
 		$scope.selectedList = $scope.filters.filter(function(item) {
