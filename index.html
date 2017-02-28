@@ -10,15 +10,42 @@
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
-	       	<h1>Missing or truncated error message # 6867</h1>
+	       	<h1>{{title}} # {{number}}</h1>
 	    </div>
 	  </div>
 	</nav>
-
 	<div class="col-md-5">
+		<div class="input-group mt15 rel">
+			<label for="owner">Owner :</label>
+			<input class="form-control" type="text" id="owner" ng-model="owner" placeholder="Owner" autocomplete="off">
+		</div>
+		<div class="input-group">
+			<label for="owner">Repo :</label>
+			<input class="form-control" type="text" id="repo" ng-model="repo" placeholder="Repo" autocomplete="off">
+		</div>
+		<div class="input-group">
+			<label for="owner">Number :</label>
+			<input class="form-control" type="text" id="number" ng-model="number" placeholder="Number" autocomplete="off">
+		</div>
+		<button class="btn btn-default" ng-click="getIssue()">Go</button>
+		<p ng-model="url"></p>
 	</div>
 
-	<div class="col-md-7 comments-container">
+	<div class="col-md-7 comments-container p0">
+		<h2 class="title-conversation">Conversation with {{user}}</h2>
+		<div class="col-md-12 p0">
+			<div class="col-md-1 p0">
+				<img width="65" ng-src="{{avatar}}" alt="{{user}}" title="{{user}}">
+			</div>
+			<div class="col-md-11">
+				<div class="first-message">
+				{{message}}	
+				</div>
+				
+			</div>
+		</div>
+		
+
 	</div>
 	
 	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
