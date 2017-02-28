@@ -10,11 +10,11 @@
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
-	       	<h1>{{title}} # {{number}}</h1>
+	       	<h1 id="title-test">{{title}} # {{number}}</h1>
 	    </div>
 	  </div>
 	</nav>
-	<div class="col-md-5">
+	<div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
 		<div class="input-group mt15 rel">
 			<label for="owner">Owner :</label>
 			<input class="form-control" type="text" id="owner" ng-model="owner" placeholder="Owner" autocomplete="off">
@@ -39,15 +39,15 @@
 		</ul>
 	</div>
 
-	<div class="col-md-7 comments-container p0">
+	<div class="col-md-7 col-lg-7 col-xs-12 col-sm-12 comments-container p0">
 		<h2 class="title-conversation">Conversation with {{user}}</h2>
 		<div class="col-md-12 p0">
-			<div class="col-md-1 p0">
+			<div class="col-md-2 col-lg-2 col-sm-3 col-xs-3 text-right p0 pr60 mt15">
 				<img width="65" ng-src="{{avatar}}" alt="{{user}}" title="{{user}}">
 			</div>
-			<div class="col-md-11">
+			<div class="col-md-10 col-lg-10 col-sm-9 col-xs-9">
 				<div class="first-message">
-				{{message}}	
+					<p>{{message}}</p>
 				</div>
 				
 			</div>
@@ -56,23 +56,27 @@
 		<ul class="list-unstyled">
     		<li ng-repeat="comment in comments">
     			<div class="col-md-12 comment p0" ng-if="comment.user.login == user">
-    				<div class="col-md-1 p0">
+    				<div class="col-md-2 col-lg-2 col-sm-3 col-xs-3 text-right p0 pr60 mt15">
 	    				<img width="65" ng-src="{{comment.user.avatar_url}}" alt="{{comment.user.login}}" title="{{comment.user.login}}">
 	    			</div>   
-					<div class="col-md-11">
+					<div class="col-md-10 col-lg-10 col-sm-9 col-xs-9">
 						<div class="first-message">
-							{{comment.body}}
+							<p>
+							{{comment.body}}	
+							</p>
 						</div>
 					</div> 
     			</div>					
 
     			<div class="col-md-12 comment p0" ng-if="comment.user.login != user">
-					<div class="col-md-11">
+					<div class="col-md-10 col-lg-10 col-sm-9 col-xs-9">
 						<div class="comment-text">
-							{{comment.body}}
+							<p>
+							{{comment.body}}	
+							</p>
 						</div>
 					</div>
-					<div class="col-md-1 p0">
+					<div class="col-md-2 col-lg-2 col-sm-3 col-xs-3 text-right p0 pr60 mt15">
 	    				<img width="65" ng-src="{{comment.user.avatar_url}}" alt="{{comment.user.login}}" title="{{comment.user.login}}">
 	    			</div>    
     			</div>	
