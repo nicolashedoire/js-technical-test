@@ -46,7 +46,18 @@
 
 		<ul class="list-unstyled">
     		<li ng-repeat="comment in comments">
-    			<div class="col-md-12 comment p0">
+    			<div class="col-md-12 comment p0" ng-if="comment.user.login == user">
+    				<div class="col-md-1 p0">
+	    				<img width="65" ng-src="{{comment.user.avatar_url}}" alt="{{comment.user.login}}" title="{{comment.user.login}}">
+	    			</div>   
+					<div class="col-md-11">
+						<div class="first-message">
+							{{comment.body}}
+						</div>
+					</div> 
+    			</div>					
+
+    			<div class="col-md-12 comment p0" ng-if="comment.user.login != user">
 					<div class="col-md-11">
 						<div class="comment-text">
 							{{comment.body}}
