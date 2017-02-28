@@ -25,9 +25,8 @@
 		</div>
 		<div class="input-group">
 			<label for="owner">Number :</label>
-			<input class="form-control" type="text" id="number" ng-model="number" placeholder="Number" autocomplete="off">
+			<input class="form-control" type="text" id="number" ng-change="getIssue()" ng-model="number" placeholder="Number" autocomplete="off">
 		</div>
-		<button class="btn btn-default" ng-click="getIssue()">Go</button>
 		<p ng-model="url"></p>
 	</div>
 
@@ -44,8 +43,21 @@
 				
 			</div>
 		</div>
-		
 
+		<ul class="list-unstyled">
+    		<li ng-repeat="comment in comments">
+    			<div class="col-md-12 comment p0">
+					<div class="col-md-11">
+						<div class="comment-text">
+							{{comment.body}}
+						</div>
+					</div>
+					<div class="col-md-1 p0">
+	    				<img width="65" ng-src="{{comment.user.avatar_url}}" alt="{{comment.user.login}}" title="{{comment.user.login}}">
+	    			</div>    
+    			</div>	
+			</li>
+		</ul>
 	</div>
 	
 	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
