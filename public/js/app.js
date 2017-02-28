@@ -27,6 +27,16 @@ app.controller('mainController', function($scope , $http , $location){
 
     $http.get($scope.commentsUrl).then(function(res){
     	$scope.comments = res.data;
+    	$scope.array    = [];
+    	$scope.filters  = [];
+      	for(var i = 0 ; i < $scope.comments.length ; i++){
+	      	if($scope.array.indexOf($scope.comments[i].user.login) == -1){
+	      		$scope.array.push($scope.comments[i].user.login);
+	      		$scope.filters.push({'name' : $scope.comments[i].user.login , selected: true});
+	      	}
+      	}
+      	
+      	$scope.array_ = angular.copy($scope.array);
     });
 
 
@@ -45,6 +55,16 @@ app.controller('mainController', function($scope , $http , $location){
 	    });
 	    $http.get($scope.commentsUrl).then(function(res){
     		$scope.comments = res.data;
+	    	$scope.array    = [];
+	    	$scope.filters  = [];
+	      	for(var i = 0 ; i < $scope.comments.length ; i++){
+		      	if($scope.array.indexOf($scope.comments[i].user.login) == -1){
+		      		$scope.array.push($scope.comments[i].user.login);
+		      		$scope.filters.push({'name' : $scope.comments[i].user.login , selected: true});
+		      	}
+	      	}
+
+	      	$scope.array_ = angular.copy($scope.array);
     	});
     }
 	

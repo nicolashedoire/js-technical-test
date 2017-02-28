@@ -27,7 +27,13 @@
 			<label for="owner">Number :</label>
 			<input class="form-control" type="text" id="number" ng-change="getIssue()" ng-model="number" placeholder="Number" autocomplete="off">
 		</div>
-		<p ng-model="url"></p>
+		<hr>
+		<h2 class="title-conversation">Users</h2>
+		<ul class="list-unstyled">        
+			<li ng-repeat="filter in filters">
+				<label><input type="checkbox" ng-checked="filter.selected" ng-change="updateList($event)" ng-model="filter.selected"> {{filter.name}}</label>
+			</li>
+		</ul>
 	</div>
 
 	<div class="col-md-7 comments-container p0">
