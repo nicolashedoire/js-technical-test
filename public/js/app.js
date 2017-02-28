@@ -26,16 +26,17 @@ app.controller('mainController', function($scope , $http , $location){
 
 
     $http.get($scope.commentsUrl).then(function(res){
-    	$scope.comments = res.data;
-    	$scope.array    = [];
-    	$scope.filters  = [];
+    	$scope.comments  = res.data;
+    	$scope.comments_ = angular.copy($scope.comments);
+    	$scope.array     = [];
+    	$scope.filters   = [];
       	for(var i = 0 ; i < $scope.comments.length ; i++){
 	      	if($scope.array.indexOf($scope.comments[i].user.login) == -1){
 	      		$scope.array.push($scope.comments[i].user.login);
 	      		$scope.filters.push({'name' : $scope.comments[i].user.login , selected: true});
 	      	}
       	}
-      	
+
       	$scope.array_ = angular.copy($scope.array);
     });
 
@@ -43,9 +44,13 @@ app.controller('mainController', function($scope , $http , $location){
 
 	// get new issues
     $scope.getIssue = function(){
+
+    	// construct different url
     	$location.url($scope.owner + '/' + $scope.repo + '/' + $scope.number);
     	$scope.url         = 'https://api.github.com/repos/' + $scope.owner + '/' + $scope.repo + '/issues/' + $scope.number + params;
     	$scope.commentsUrl = 'https://api.github.com/repos/' + $scope.owner + '/' + $scope.repo + '/issues/' + $scope.number  + '/comments' + params;
+
+    	// get title body and avatar
 		$http.get($scope.url).then(function(res){
 	    	$scope.title          = res.data.title;
 	    	$scope.user           = res.data.user.login;
@@ -53,10 +58,13 @@ app.controller('mainController', function($scope , $http , $location){
 	    	$scope.message        = res.data.body;
 
 	    });
+
+	    // get comments
 	    $http.get($scope.commentsUrl).then(function(res){
-    		$scope.comments = res.data;
-	    	$scope.array    = [];
-	    	$scope.filters  = [];
+    		$scope.comments  = res.data;
+    		$scope.comments_ = angular.copy($scope.comments);
+	    	$scope.array     = [];
+	    	$scope.filters   = [];
 	      	for(var i = 0 ; i < $scope.comments.length ; i++){
 		      	if($scope.array.indexOf($scope.comments[i].user.login) == -1){
 		      		$scope.array.push($scope.comments[i].user.login);
@@ -67,5 +75,28 @@ app.controller('mainController', function($scope , $http , $location){
 	      	$scope.array_ = angular.copy($scope.array);
     	});
     }
-	
+
+	$scope.updateList = function() {
+		var selectedUsers = [] , items = [] , comments = [];
+		$scope.selectedList = $scope.filters.filter(function(item) {
+			var name = item.name;
+			if(item.selected){
+				items.push(name);
+				$scope.array.map(function(e) {
+		      		if(e.name === name){
+		      			selectedUsers.push(e);
+		      		}
+		      	});
+				return item.selected;
+			}
+		});
+
+		// update comments
+		$scope.comments = $scope.comments_.filter(function(item){
+			   	if(items.indexOf(item.user.login) != -1){
+			   		comments.push(items);
+			   		return item;
+				}
+			});
+		};
 });
