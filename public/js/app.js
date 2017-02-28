@@ -3,12 +3,16 @@ var app = angular.module('app' , []);
 
 app.controller('mainController', function($scope , $http , $location){
 
+	var clientId     = 'client_id=d1942bc1c324349694c9';
+	var clientSecret = '&client_secret=98ab2c8869c1828d1107affebdc865c59361d716'; 
+	var params       = '?' + clientId + clientSecret;
+
 	// default values
 	$scope.owner  = 'nodejs';
 	$scope.repo   = 'node';
 	$scope.number = '6867'; 
-	$scope.url    =  'https://api.github.com/repos/' + $scope.owner + '/' + $scope.repo + '/issues/' + $scope.number;
-	$scope.commentsUrl = $scope.url + '/comments';
+	$scope.url    =  'https://api.github.com/repos/' + $scope.owner + '/' + $scope.repo + '/issues/' + $scope.number + params;
+	$scope.commentsUrl = 'https://api.github.com/repos/' + $scope.owner + '/' + $scope.repo + '/issues/' + $scope.number + '/comments' + params;
 
 	$location.url($scope.owner + '/' + $scope.repo + '/' + $scope.number);
 
@@ -30,8 +34,8 @@ app.controller('mainController', function($scope , $http , $location){
 	// get new issues
     $scope.getIssue = function(){
     	$location.url($scope.owner + '/' + $scope.repo + '/' + $scope.number);
-    	$scope.url         = 'https://api.github.com/repos/' + $scope.owner + '/' + $scope.repo + '/issues/' + $scope.number;
-    	$scope.commentsUrl = $scope.url + '/comments';
+    	$scope.url         = 'https://api.github.com/repos/' + $scope.owner + '/' + $scope.repo + '/issues/' + $scope.number + params;
+    	$scope.commentsUrl = 'https://api.github.com/repos/' + $scope.owner + '/' + $scope.repo + '/issues/' + $scope.number  + '/comments' + params;
 		$http.get($scope.url).then(function(res){
 	    	$scope.title          = res.data.title;
 	    	$scope.user           = res.data.user.login;
