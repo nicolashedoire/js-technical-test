@@ -188,7 +188,7 @@ app.controller('mainController', function($scope , $http , $location){
 			var name = item.name;
 			if(item.selected){
 				items.push(name);
-				$scope.array.map(function(e) {
+				users.map(function(e) {
 		      		if(e.name === name){
 		      			selectedUsers.push(e);
 		      		}
@@ -196,6 +196,11 @@ app.controller('mainController', function($scope , $http , $location){
 				return item.selected;
 			}
 		});
+
+		console.log(selectedUsers);
+		chart = $('#container').highcharts();
+		chart.series[0].update({name : 'user'});
+		chart.series[0].setData(selectedUsers);
 
 		// update comments
 		$scope.comments = $scope.comments_.filter(function(item){
